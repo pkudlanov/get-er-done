@@ -3,7 +3,7 @@ from .models import Todo
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created', 'completed', 'important')
+    list_display = ('title', 'user', 'created', 'completed', 'important')
     readonly_fields = ('created',)
 
 
