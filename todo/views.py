@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import TodoForm
 from .models import Todo
+from django.utils import timezone
 
 
 def home(request):
@@ -94,3 +95,11 @@ def viewtodo(request, todo_pk):
                 'form': TodoForm(),
                 'error': 'The information you provided was invalid'
             })
+
+
+def completetodo(request, todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+    if request.method == 'POST':
+        todo.completed = timezone.now()
+        todo.save()
+        return redirect('currenttodos')
