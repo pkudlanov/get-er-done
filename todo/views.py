@@ -2,17 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import IntegrityError
 from .forms import TodoForm
 from .models import Todo
 from django.utils import timezone
 
 
+def not_loggedin_required(user):
+    return not user.is_authenticated
+
+
 def home(request):
+    print(request.user)
     return render(request, 'todo/home.html')
 
 
+@user_passes_test(not_loggedin_required, login_url='currenttodos')
 def signupuser(request):
     if request.method == 'GET':
         return render(request, 'todo/signupuser.html', {'form': UserCreationForm()})
@@ -37,6 +43,7 @@ def signupuser(request):
             )
 
 
+@user_passes_test(not_loggedin_required, login_url='currenttodos')
 def loginuser(request):
     if request.method == 'GET':
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
