@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '98pdln1w_r_a^yk*_4g5yaahvp^%ayx9t$7pj_k=h$qg$-$uo#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -119,5 +119,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_URL = '/login/'
+
+
+try:
+    from .local_settings import *  # noqa: F403 F401
+except ImportError:
+    print('Looks like no local file. You must be on a production server')

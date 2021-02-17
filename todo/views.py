@@ -14,7 +14,6 @@ def not_loggedin_required(user):
 
 
 def home(request):
-    print(request.user)
     return render(request, 'todo/home.html')
 
 
