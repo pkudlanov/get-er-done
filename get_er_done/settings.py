@@ -26,7 +26,7 @@ SECRET_KEY = '98pdln1w_r_a^yk*_4g5yaahvp^%ayx9t$7pj_k=h$qg$-$uo#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['get-er-done-app.herokuapp.com/']
+ALLOWED_HOSTS = ['get-er-done-app.herokuapp.com']
 
 
 # Application definition
@@ -122,6 +122,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_REDIRECT_URL = '/home/'
 
 
 try:
